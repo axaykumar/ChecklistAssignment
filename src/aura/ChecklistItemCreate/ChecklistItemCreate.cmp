@@ -1,0 +1,39 @@
+<aura:component >
+    <aura:attribute name="checklist" type="CheckList__c" required="true" />
+    <aura:attribute name="newItem" type="CheckList_Item__c" 
+                    default="{ 'sobjectType': 'CheckList_Item__c', 'Done__c': false }"/>
+    
+    <aura:registerEvent name="createItem" type="c:ChecklistItemUpdate"/>
+    
+    <!-- CREATE NEW EXPENSE -->
+    <div aria-labelledby="newitemform">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newitemform" class="slds-text-heading--small slds-p-vertical--medium">
+          Add Checklist Item
+        </legend>
+  
+        <!-- CREATE NEW EXPENSE FORM -->
+        <form class="slds-form--stacked">
+            <lightning:textarea aura:id="itemform" label="Description" name="itemdescription"
+                                value="{!v.newItem.Description__c}"
+                                maxlength="255"
+                                messageWhenTooLong="You have exceeded the limit of 255 characters!"
+                                required="true"
+                                placeholder="what you want to do?" />
+            
+            <lightning:input type="checkbox" aura:id="itemform" label="Done?"  
+                             name="done"
+                             checked="{!v.newItem.Done__c}"/>
+            <lightning:button label="Create Checklist Item" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.clickCreate}"/>
+        </form>
+        <!-- / CREATE NEW ITEM FORM -->
+  
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+    <!-- / CREATE NEW ITEM -->
+</aura:component>

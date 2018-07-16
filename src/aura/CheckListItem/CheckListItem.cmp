@@ -1,0 +1,28 @@
+<aura:component >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="formatdate" type="Date"/>
+    <aura:attribute name="item" type="CheckList_Item__c" />
+    
+    <aura:registerEvent name="updateItem" type="c:ChecklistItemUpdate"/>
+    
+    <lightning:card title="{!v.item.Description__c}" iconName="action:record" >
+        
+        <aura:set attribute="footer">
+            <p>Date: <lightning:formattedDateTime value="{!v.formatdate}"/></p>
+            <p class="slds-text-title"><lightning:relativeDateTime value="{!v.formatdate}"/></p>
+        </aura:set>
+        <p class="slds-text-heading--medium slds-p-horizontal--small">
+           <!--Description: <lightning:formattedNumber value="{!v.item.Amount__c}" style="currency"/>-->
+            <force:outputField value="{!v.item.Name}"/>
+        </p>
+        
+        <p>
+            <lightning:input type="toggle" label="Done?" 
+                             name="done" class="slds-p-around--small" 
+                             checked="{!v.item.Done__c}" messageToggleActive="Yes" 
+                             messageToggleInactive="No" onchange="{!c.clickDone}"/>
+        </p>
+    </lightning:card>
+</aura:component>

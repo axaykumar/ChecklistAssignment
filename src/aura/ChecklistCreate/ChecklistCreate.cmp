@@ -1,0 +1,45 @@
+<aura:component controller="ChecklistController">
+    
+    <aura:attribute name="newChecklist" type="CheckList__c" default="{ 'sobjectType': 'CheckList__c' }"/>
+	<aura:registerEvent name="createChecklist" type="c:checklistUpsert"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedType" type="String" />
+                    
+    <div aria-labelledby="newchecklistform">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newchecklistform" class="slds-text-heading--small slds-p-vertical--medium">
+          Add Checklist
+        </legend>
+  
+        <!-- CREATE NEW EXPENSE FORM -->
+        <form class="slds-form--stacked">          
+            <lightning:input aura:id="checklistform" label="Checklist Name"
+                             name="checklistname"
+                             value="{!v.newChecklist.Name}"
+                             required="true"
+                             maxlength="80"
+                             messageWhenTooLong="You have exceeded the limit of 80 characters!"
+                             placeholder="Your checklist name"/> 
+            
+            <lightning:select aura:id="checklistform" label="Select Checklist Type"
+                             name="checklisttype"
+                              value="{!v.newChecklist.Type__c}" >
+                <aura:iteration items="{!v.options}" var="item">
+                	<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+            	</aura:iteration>
+            </lightning:select>
+            
+            <lightning:button label="Create Checklist" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.clickCreate}"/>
+        </form>
+        <!-- / CREATE NEW CHECKLIST FORM -->
+  
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+</aura:component>
